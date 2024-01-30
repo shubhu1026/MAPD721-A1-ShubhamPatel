@@ -17,16 +17,20 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shubhu1026.mapd721_a1_shubhampatel.ui.theme.MAPD721A1ShubhamPatelTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +50,17 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun UserScreen(){
+    // context
+    val context = LocalContext.current
+    // scope
+    val scope = rememberCoroutineScope()
+
+    val dataStore = DataStoreManager(context)
+
+    val savedUsernameState = dataStore.getUsername.collectAsState(initial = "")
+    val savedEmailState = dataStore.getEmail.collectAsState(initial = "")
+    val savedIdState = dataStore.getId.collectAsState(initial = "")
+
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var id by remember { mutableStateOf("") }
@@ -93,6 +108,9 @@ fun UserScreen(){
             Button(
                 onClick = {
                     // On Save press
+                    scope.launch {
+                        dataStore.saveUserData(UserData(username, email, id.toInt()))
+                    }
                 }) {
                 Text("Save")
             }
@@ -100,6 +118,9 @@ fun UserScreen(){
             Button(
                 onClick = {
                     // On Clear press
+                    scope.launch {
+                        dataStore.clearUserData()
+                    }
                 }) {
                 Text("Clear")
             }
@@ -107,6 +128,13 @@ fun UserScreen(){
             Button(
                 onClick = {
                     // On Load press
+                    username = savedUsernameState.value ?: ""
+                    email = savedEmailState.value ?: ""
+                    id = if(savedIdState.value != -1) {
+                        (savedIdState.value ?: "").toString()
+                    } else {
+                        ""
+                    }
                 }) {
                 Text("Load")
             }
