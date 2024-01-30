@@ -111,6 +111,17 @@ fun UserScreen(){
                 Text("Load")
             }
         }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp),
+        ) {
+            Text("Shubham Patel")
+            Text("301366205")
+        }
     }
 }
 
