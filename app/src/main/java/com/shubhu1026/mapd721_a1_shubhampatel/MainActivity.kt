@@ -12,14 +12,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.shubhu1026.mapd721_a1_shubhampatel.ui.theme.MAPD721A1ShubhamPatelTheme
 
 class MainActivity : ComponentActivity() {
@@ -54,7 +57,8 @@ fun UserScreen(){
             modifier = Modifier
                 .fillMaxWidth(),
             value = username,
-            onValueChange = { username = it }
+            onValueChange = { username = it },
+            label = { Text(text = "Username", color = Color.Gray, fontSize = 14.sp) }
         )
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -63,7 +67,8 @@ fun UserScreen(){
             modifier = Modifier
                 .fillMaxWidth(),
             value = email,
-            onValueChange = { email = it }
+            onValueChange = { email = it },
+            label = { Text(text = "User Email", color = Color.Gray, fontSize = 14.sp) },
         )
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -72,7 +77,8 @@ fun UserScreen(){
             modifier = Modifier
                 .fillMaxWidth(),
             value = id,
-            onValueChange = { id = it }
+            onValueChange = { id = it },
+            label = { Text(text = "User ID", color = Color.Gray, fontSize = 14.sp) },
         )
     }
 }
