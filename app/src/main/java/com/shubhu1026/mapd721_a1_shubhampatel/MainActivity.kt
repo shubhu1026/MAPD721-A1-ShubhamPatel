@@ -1,6 +1,7 @@
 package com.shubhu1026.mapd721_a1_shubhampatel
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -107,9 +108,16 @@ fun UserScreen(){
         ) {
             Button(
                 onClick = {
-                    // On Save press
-                    scope.launch {
-                        dataStore.saveUserData(UserData(username, email, id.toInt()))
+                    // only store the data if all the text fields are filled
+                    if(username != "" && email != "" && id != "") {
+                        scope.launch {
+                            dataStore.saveUserData(UserData(username, email, id.toInt()))
+                        }
+                        Toast.makeText(context, "User data saved.", Toast.LENGTH_SHORT).show()
+                    }
+                    else
+                    {
+                        Toast.makeText(context, "Input fields need to be filled.", Toast.LENGTH_SHORT).show()
                     }
                 }) {
                 Text("Save")
@@ -117,23 +125,37 @@ fun UserScreen(){
 
             Button(
                 onClick = {
-                    // On Clear press
+                    // Clear button functionality
                     scope.launch {
                         dataStore.clearUserData()
                     }
+                    // Reset input fields after clearing
+                    username = ""
+                    email = ""
+                    id = ""
+
+                    Toast.makeText(context, "User data cleared.", Toast.LENGTH_SHORT).show()
                 }) {
                 Text("Clear")
             }
 
             Button(
                 onClick = {
-                    // On Load press
                     username = savedUsernameState.value ?: ""
                     email = savedEmailState.value ?: ""
                     id = if(savedIdState.value != -1) {
                         (savedIdState.value ?: "").toString()
                     } else {
                         ""
+                    }
+
+                    if(username == "" && email == "" && id == "")
+                    {
+                        Toast.makeText(context, "User data not found.", Toast.LENGTH_SHORT).show()
+                    }
+                    else
+                    {
+                        Toast.makeText(context, "User data loaded.", Toast.LENGTH_SHORT).show()
                     }
                 }) {
                 Text("Load")
