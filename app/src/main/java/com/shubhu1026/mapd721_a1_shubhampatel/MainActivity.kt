@@ -3,12 +3,15 @@ package com.shubhu1026.mapd721_a1_shubhampatel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -80,6 +83,34 @@ fun UserScreen(){
             onValueChange = { id = it },
             label = { Text(text = "User ID", color = Color.Gray, fontSize = 14.sp) },
         )
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // row for the buttons
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
+            Button(
+                onClick = {
+                    // On Save press
+                }) {
+                Text("Save")
+            }
+
+            Button(
+                onClick = {
+                    // On Clear press
+                }) {
+                Text("Clear")
+            }
+
+            Button(
+                onClick = {
+                    // On Load press
+                }) {
+                Text("Load")
+            }
+        }
     }
 }
 
