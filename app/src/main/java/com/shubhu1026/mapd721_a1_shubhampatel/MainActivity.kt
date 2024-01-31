@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,7 +15,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -31,6 +36,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shubhu1026.mapd721_a1_shubhampatel.ui.theme.MAPD721A1ShubhamPatelTheme
+import com.shubhu1026.mapd721_a1_shubhampatel.ui.theme.blue
+import com.shubhu1026.mapd721_a1_shubhampatel.ui.theme.darkGreen
+import com.shubhu1026.mapd721_a1_shubhampatel.ui.theme.darkRed
+import com.shubhu1026.mapd721_a1_shubhampatel.ui.theme.darkYellow
+import com.shubhu1026.mapd721_a1_shubhampatel.ui.theme.lightGreen
+import com.shubhu1026.mapd721_a1_shubhampatel.ui.theme.lightRed
+import com.shubhu1026.mapd721_a1_shubhampatel.ui.theme.lightYellow
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -50,7 +62,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun UserScreen(){
+fun UserScreen() {
     // context
     val context = LocalContext.current
     // scope
@@ -106,7 +118,21 @@ fun UserScreen(){
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            Button(
+            Button(modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 5.dp)
+                .background(
+                    color = lightYellow,
+                    shape = RoundedCornerShape(10.dp)
+                )
+                .border(
+                    width = 2.dp,
+                    color = darkYellow,
+                    shape = RoundedCornerShape(10.dp)
+                ),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = Color.Black),
                 onClick = {
                     // only store the data if all the text fields are filled
                     if(username != "" && email != "" && id != "") {
@@ -120,10 +146,24 @@ fun UserScreen(){
                         Toast.makeText(context, "Input fields need to be filled.", Toast.LENGTH_SHORT).show()
                     }
                 }) {
-                Text("Save")
+                Text("Save", )
             }
 
-            Button(
+            Button(modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 5.dp)
+                .background(
+                    color = lightGreen,
+                    shape = RoundedCornerShape(10.dp)
+                )
+                .border(
+                    width = 2.dp,
+                    color = darkGreen,
+                    shape = RoundedCornerShape(10.dp)
+                ),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = Color.Black),
                 onClick = {
                     // Clear button functionality
                     scope.launch {
@@ -139,7 +179,21 @@ fun UserScreen(){
                 Text("Clear")
             }
 
-            Button(
+            Button(modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 5.dp)
+                .background(
+                    color = lightRed,
+                    shape = RoundedCornerShape(10.dp)
+                )
+                .border(
+                    width = 2.dp, // Border width
+                    color = darkRed, // Border color
+                    shape = RoundedCornerShape(10.dp)
+                ),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = Color.Black),
                 onClick = {
                     username = savedUsernameState.value ?: ""
                     email = savedEmailState.value ?: ""
@@ -167,10 +221,14 @@ fun UserScreen(){
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .border(
+                    border = BorderStroke(width = 1.dp, color = Color(0, 0, 0)),
+                    shape = RoundedCornerShape(10.dp)
+                )
                 .padding(20.dp),
         ) {
-            Text("Shubham Patel")
-            Text("301366205")
+            Text("Shubham Patel", color = blue)
+            Text("301366205", color = blue)
         }
     }
 }
